@@ -2,11 +2,17 @@ interface CheckServiceUseCase {
     execute(url: string): Promise<boolean>
 }
 
+type SuccessCallback = () => void;
+type ErrorCallback = (error: string) => void;
 
 export class CheckService implements CheckServiceUseCase {
 
-    public async execute(url: string): Promise<boolean> {
+    constructor(
+        private readonly successCallBack: SuccessCallback,
+        private readonly errorCallBack: ErrorCallback
+    ) {}
 
+    public async execute(url: string): Promise<boolean> {
         try {
             const req = await fetch(url);
 
@@ -14,17 +20,12 @@ export class CheckService implements CheckServiceUseCase {
                 throw new Error(`Error fetching data from ${url}`);
             }
 
-            console.log(`${url} is up and running`);
+            this.successCallBack();
 
             return true
         } catch (error) {
-            console.log(`${error}`);
+            this.errorCallBack(`${error}`);
             return false;
         }
-
     }
-
-
-
-
 }

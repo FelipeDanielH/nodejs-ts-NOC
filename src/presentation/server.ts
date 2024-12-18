@@ -6,10 +6,15 @@ export class Server {
     public static start() {
         console.log('Server started');
 
+        const url = 'https://google.com';
+
         CronService.createJob(
-            '* * * * *', // Every minute
+            '*/10 * * * * *', // Every minute
             () => {
-                new CheckService().execute('https://google.com');
+                new CheckService(
+                    () => console.log(`${url} is online`),
+                    (error) => console.log(error)
+                ).execute(url);
                 // new CheckService().execute('http://localhost:3000');
             }
         );
