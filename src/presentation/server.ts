@@ -7,9 +7,10 @@ export class Server {
         console.log('Server started');
 
         CronService.createJob(
-            '*/5 * * * * *', // Every minute
+            '* * * * *', // Every minute
             () => {
                 new CheckService().execute('https://google.com');
+                // new CheckService().execute('http://localhost:3000');
             }
         );
     }

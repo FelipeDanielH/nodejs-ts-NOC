@@ -10,7 +10,7 @@ export class CheckService implements CheckServiceUseCase {
         try {
             const req = await fetch(url);
 
-            if(req){
+            if(!req){
                 throw new Error(`Error fetching data from ${url}`);
             }
 
