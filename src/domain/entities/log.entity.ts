@@ -4,7 +4,7 @@ export enum LogSeverityLevel {
     high = 'high',
 }
 
-export class Log {
+export class LogEntity {
     constructor(
         private readonly message: string,
         private readonly severity: LogSeverityLevel,
