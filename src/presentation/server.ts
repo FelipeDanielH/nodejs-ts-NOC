@@ -1,5 +1,11 @@
 import { CheckService } from "../domain/use-cases/checks/check-service";
+import { FileSystemDataSource } from "../infraestructure/datasource/file-system.datasource";
+import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
+
+const fileSystemLogRepository = new LogRepositoryImpl(
+    new FileSystemDataSource()
+)
 
 
 export class Server {
@@ -12,6 +18,7 @@ export class Server {
             '* * * * *', // Every minute
             () => {
                 new CheckService(
+                    fileSystemLogRepository,
                     () => console.log(`${url} is online`),
                     (error) => console.log(error)
                 ).execute(url);

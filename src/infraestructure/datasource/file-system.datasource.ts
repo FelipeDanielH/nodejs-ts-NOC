@@ -17,6 +17,10 @@ export class FileSystemDataSource implements LogDatasource {
 
     private createLogFiles = () => {
 
+        if( !fs.existsSync(this.logPath) ){
+            fs.mkdirSync(this.logPath);
+        }
+
         [
             this.allLogsPath,
             this.mediumLogsPath,
@@ -26,8 +30,6 @@ export class FileSystemDataSource implements LogDatasource {
             fs.writeFileSync(path, '');
 
         })
-
-
     }
 
 
