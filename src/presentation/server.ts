@@ -14,7 +14,10 @@ export class Server {
 
         const url = 'https://google.com';
 
-        CronService.createJob(
+        //* MANDAR EMAIL
+
+
+        /* CronService.createJob(
             '* * * * *', // Every minute
             () => {
                 new CheckService(
@@ -24,6 +27,6 @@ export class Server {
                 ).execute(url);
                 // new CheckService().execute('http://localhost:3000');
             }
-        );
+        ); */
     }
 }
