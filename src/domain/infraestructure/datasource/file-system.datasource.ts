@@ -31,34 +31,43 @@ export class FileSystemDataSource implements LogDatasource {
     }
 
 
-    async saveLog( newLog: LogEntity): Promise<void> {
-        fs.appendFileSync( this.allLogsPath, `${JSON.stringify(newLog)}\n`);
+    async saveLog(newLog: LogEntity): Promise<void> {
+        fs.appendFileSync(this.allLogsPath, `${JSON.stringify(newLog)}\n`);
 
         if (newLog.level === LogSeverityLevel.low) return;
-        
+
         if (newLog.level === LogSeverityLevel.medium) {
             fs.appendFileSync(this.mediumLogsPath, `${JSON.stringify(newLog)}\n`);
-        }else{
+        } else {
             fs.appendFileSync(this.highLogsPath, `${JSON.stringify(newLog)}\n`);
         }
     }
 
 
+    private getLogsFromFile = (path: string): LogEntity[] => {
+        const content = fs.readFileSync(path, 'utf-8');
+        const logs = content.split('\n').map(LogEntity.fromJson)
+
+        return logs
+    }
 
 
-    
 
-    getLogs(severitylevel: LogSeverityLevel): Promise<LogEntity[]> {
-        
-        switch (severitylevel) {
+    async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
+
+        switch (severityLevel) {
             case LogSeverityLevel.low:
-                
-                break;
-        
+                return this.getLogsFromFile(this.allLogsPath);
+            case LogSeverityLevel.medium:
+                return this.getLogsFromFile(this.mediumLogsPath);
+            case LogSeverityLevel.high:
+                return this.getLogsFromFile(this.highLogsPath);
+
+
             default:
+                throw new Error(`${severityLevel} not implementes`);
+
                 break;
         }
-        
-        throw new Error("Method not implemented.");
     }
 }
