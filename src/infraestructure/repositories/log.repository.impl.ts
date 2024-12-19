@@ -7,14 +7,14 @@ import { LogDatasource } from '../../domain/datasource/log.datasource';
 export class LogRepositoryImpl implements LogRepository{
 
     constructor(
-        private readonly LogDatasource: LogDatasource,
+        private readonly logDatasource: LogDatasource,
     ){}
 
     async saveLog(log: LogEntity): Promise<void> {
-        return this.LogDatasource.saveLog( log );
+        return this.logDatasource.saveLog( log );
     }
 
     async getLogs(severitylevel: LogSeverityLevel): Promise<LogEntity[]> {
-        return this.LogDatasource.getLogs(severitylevel);
+        return this.logDatasource.getLogs(severitylevel);
     }
 }
