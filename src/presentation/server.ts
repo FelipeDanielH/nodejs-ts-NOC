@@ -9,7 +9,7 @@ export class Server {
         const url = 'https://google.com';
 
         CronService.createJob(
-            '*/10 * * * * *', // Every minute
+            '* * * * *', // Every minute
             () => {
                 new CheckService(
                     () => console.log(`${url} is online`),
