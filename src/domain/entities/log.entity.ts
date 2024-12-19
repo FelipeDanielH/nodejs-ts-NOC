@@ -6,8 +6,8 @@ export enum LogSeverityLevel {
 
 export class LogEntity {
     constructor(
-        private readonly message: string,
-        private readonly severity: LogSeverityLevel,
-        private readonly timestamp: Date,
+        public readonly message: string,
+        public readonly level: LogSeverityLevel,
+        public readonly createdAt: Date,
     ) {}
 }
