@@ -16,7 +16,7 @@ export class Server {
         const url = 'https://google.com';
 
         //* MANDAR EMAIL
-        const emailService = new EmailService();
+        const emailService = new EmailService(fileSystemLogRepository);
 
         //* Con attachments
         emailService.sendEmailWithFileSystemLogs('felipe.daniel.henriquez@gmail.com');
