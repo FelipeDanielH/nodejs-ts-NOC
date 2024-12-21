@@ -26,10 +26,6 @@ export class EmailService {
         }
     });
 
-    constructor(
-        private readonly logRepository: LogRepository
-    ){}
-
 
     async sendEmail(options: SendMailOptions): Promise<boolean> {
 
@@ -43,25 +39,8 @@ export class EmailService {
                 html: htmlBody
             })
 
-            console.log('desde sendEmail: ',sentInformation);
-            const log = new LogEntity({
-                level: LogSeverityLevel.low,
-                message: 'email enviado',
-                origin: 'email.service'
-            })
-
-            this.logRepository.saveLog(log)
-
             return true;
         } catch (error) {
-
-            const log = new LogEntity({
-                level: LogSeverityLevel.low,
-                message: `email no envidado. error: ${error}`,
-                origin: 'email.service'
-            })
-
-            this.logRepository.saveLog(log)
 
             console.log(`${error}`)
             return false;
@@ -69,7 +48,8 @@ export class EmailService {
 
     }
 
-    async sendEmailWithFileSystemLogs(to: string | string[]): Promise<void> {
+    async sendEmailWithFileSystemLogs(to: string | string[]): Promise<boolean> {
+
 
         const subject = 'Logs del servidor'
         const htmlBody = `<h1> LOGS </h1>
@@ -78,27 +58,34 @@ export class EmailService {
             <p>ver los logs adjuntos</p>
             <hr>`
 
-
-        const attachments: Attachement[] = [
-            {
-                filename: 'logs-low.log',
-                path: 'logs/logs-low.log'
-            },
-            {
-                filename: 'logs-medium.log',
-                path: 'logs/logs-medium.log'
-            },
-            {
-                filename: 'logs-high.log',
-                path: 'logs/logs-high.log'
-            }
-        ]
-
-        const sentInformation = await this.transporter.sendMail({
-            to, subject, attachments, html: htmlBody
-        })
-
-        console.log('desde sendEmailWithFileSystemLogs: ',sentInformation);
+        try {
+    
+            const attachments: Attachement[] = [
+                {
+                    filename: 'logs-low.log',
+                    path: 'logs/logs-low.log'
+                },
+                {
+                    filename: 'logs-medium.log',
+                    path: 'logs/logs-medium.log'
+                },
+                {
+                    filename: 'logs-high.log',
+                    path: 'logs/logs-high.log'
+                }
+            ]
+    
+            const sentInformation = await this.transporter.sendMail({
+                to, subject, attachments, html: htmlBody
+            })
+    
+            console.log('desde sendEmailWithFileSystemLogs: ',sentInformation);
+    
+            return true;
+        } catch (error) {
+            return false;
+        }
+       
     }
 
 }

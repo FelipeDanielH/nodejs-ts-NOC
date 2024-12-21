@@ -1,13 +1,17 @@
+import { envs } from "../config/plugins/envs.plugin";
 import { CheckService } from "../domain/use-cases/checks/check-service";
+import { SendEmailLogs } from "../domain/use-cases/email/send-email-logs";
 import { FileSystemDataSource } from "../infraestructure/datasource/file-system.datasource";
 import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
-import { EmailService } from "./email/email.service";
+import { EmailService } from './email/email.service';
 
 const fileSystemLogRepository = new LogRepositoryImpl(
     new FileSystemDataSource()
 )
 
+const emailService = new EmailService();
+const emailLogs = new SendEmailLogs(emailService, fileSystemLogRepository);
 
 export class Server {
     public static start() {
@@ -15,11 +19,13 @@ export class Server {
 
         const url = 'https://google.com';
 
-        //* MANDAR EMAIL
-        const emailService = new EmailService(fileSystemLogRepository);
+        //* MANDAR EMAIL 
+        
+        
 
         //* Con attachments
-        emailService.sendEmailWithFileSystemLogs('felipe.daniel.henriquez@gmail.com');
+        emailLogs.execute(envs.MAILER_DESTINATARY);
+
 
         //* Sin attachments
         /* emailService.sendEmail({
