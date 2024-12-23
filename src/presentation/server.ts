@@ -24,7 +24,7 @@ export class Server {
         
 
         //* Con attachments
-        emailLogs.execute(envs.MAILER_DESTINATARY);
+        // emailLogs.execute(envs.MAILER_DESTINATARY);
 
 
         //* Sin attachments
