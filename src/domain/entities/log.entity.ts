@@ -30,9 +30,23 @@ export class LogEntity {
     static fromJson = (json: string): LogEntity => {
         const { message, level, createdAt } = JSON.parse(json);
 
-        const log = new LogEntity({message, level, origin});
+        const log = new LogEntity({ message, level, origin });
         log.createdAt = new Date(createdAt);
 
         return log;
+    }
+
+    static fromObject = (obj: Record<string,any>) => {
+
+        const { message, level, createdAt, origin } = obj
+
+        const log = new LogEntity({
+            message,
+            level,
+            origin,
+            createdAt
+        });
+
+        return log
     }
 }
