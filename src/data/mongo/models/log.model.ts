@@ -1,13 +1,3 @@
-/* 
-export interface logEntityOptions {
-    level: LogSeverityLevel,
-    message: string,
-    origin: string,
-    createdAt?: Date
-}
- */
-
-
 import mongoose from "mongoose";
 import { LogSeverityLevel } from "../../../domain/entities/log.entity";
 
@@ -30,4 +20,4 @@ const logSchema = new mongoose.Schema({
     }
 })
 
-export const logModel = mongoose.model('Log', logSchema)
+export const LogModel = mongoose.model('Log', logSchema)
