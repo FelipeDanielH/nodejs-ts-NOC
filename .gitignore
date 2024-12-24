@@ -6,3 +6,4 @@ logs/
 .env
 test.html
 /mongo
+/postgres
