@@ -8,15 +8,14 @@ import { CronService } from "./cron/cron-service";
 import { EmailService } from './email/email.service';
 import { LogSeverityLevel } from '../domain/entities/log.entity';
 import { PostgresDataSource } from "../infraestructure/datasource/postgres-log.datasourve";
+import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multiple";
 
-const logRepository = new LogRepositoryImpl(
-    // new FileSystemDataSource()
-    // new MongoLogDataSource()
-    new PostgresDataSource()
-)
+const fsLogRepository = new LogRepositoryImpl( new FileSystemDataSource() )
+const mongoLogRepository = new LogRepositoryImpl( new MongoLogDataSource)
+const postgresLogRepository = new LogRepositoryImpl( new PostgresDataSource )
 
 const emailService = new EmailService();
-const emailLogs = new SendEmailLogs(emailService, logRepository);
+const emailLogs = new SendEmailLogs(emailService, fsLogRepository);
 
 export class Server {
     public static async start() {
@@ -41,23 +40,26 @@ export class Server {
             <hr>`
         }) */
 
-       /*  const logs = await logRepository.getLogs(LogSeverityLevel.medium);
-        console.log(logs); */
+        /*  const logs = await logRepository.getLogs(LogSeverityLevel.medium);
+         console.log(logs); */
 
         //  quede aqui no se como se manda severity level
         // console.log( await logRepository.getLogs(LogSeverityLevel.low))
 
-        
-        // CronService.createJob(
-        //     '*/5 * * * * *', // Every minute
-        //     () => {
-        //         new CheckService(
-        //             logRepository,
-        //             () => console.log(`${url} is online`),
-        //             (error) => console.log(error)
-        //         ).execute(url);
-        //         // new CheckService().execute('http://localhost:3000');
-        //     }
-        // );
+        CronService.createJob(
+            '*/5 * * * * *', // Every minute
+            () => {
+                new CheckServiceMultiple(
+                    [
+                        fsLogRepository,
+                        mongoLogRepository,
+                        postgresLogRepository
+                    ],
+                    () => console.log(`${url} is online`),
+                    (error) => console.log(error)
+                ).execute(url);
+                // new CheckService().execute('http://localhost:3000');
+            }
+        );
     }
 }
