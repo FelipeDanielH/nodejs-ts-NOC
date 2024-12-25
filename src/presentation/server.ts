@@ -7,10 +7,12 @@ import { LogRepositoryImpl } from "../infraestructure/repositories/log.repositor
 import { CronService } from "./cron/cron-service";
 import { EmailService } from './email/email.service';
 import { LogSeverityLevel } from '../domain/entities/log.entity';
+import { PostgresDataSource } from "../infraestructure/datasource/postgres-log.datasourve";
 
 const logRepository = new LogRepositoryImpl(
-    new FileSystemDataSource()
+    // new FileSystemDataSource()
     // new MongoLogDataSource()
+    new PostgresDataSource()
 )
 
 const emailService = new EmailService();
@@ -23,8 +25,6 @@ export class Server {
         const url = 'https://google.com';
 
         //* MANDAR EMAIL
-
-
 
         //* Con attachments
         // emailLogs.execute(envs.MAILER_DESTINATARY);
@@ -41,20 +41,23 @@ export class Server {
             <hr>`
         }) */
 
-        const logs = await logRepository.getLogs(LogSeverityLevel.medium);
-        console.log(logs);
+       /*  const logs = await logRepository.getLogs(LogSeverityLevel.medium);
+        console.log(logs); */
 
+        //  quede aqui no se como se manda severity level
+        // console.log( await logRepository.getLogs(LogSeverityLevel.low))
 
-        /* CronService.createJob(
-            '* * * * * *', // Every minute
-            () => {
-                new CheckService(
-                    logRepository,
-                    () => console.log(`${url} is online`),
-                    (error) => console.log(error)
-                ).execute(url);
-                // new CheckService().execute('http://localhost:3000');
-            }
-        ); */
+        
+        // CronService.createJob(
+        //     '*/5 * * * * *', // Every minute
+        //     () => {
+        //         new CheckService(
+        //             logRepository,
+        //             () => console.log(`${url} is online`),
+        //             (error) => console.log(error)
+        //         ).execute(url);
+        //         // new CheckService().execute('http://localhost:3000');
+        //     }
+        // );
     }
 }
