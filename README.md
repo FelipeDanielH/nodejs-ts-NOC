@@ -40,6 +40,7 @@ ___
 3. Ejecutar los siguientes comandos:
 - ``` npm install ```
 - ``` docker compose up -d ```
+- ``` npx prisma migrate dev ```
 5. Finalmente, con este comando se inicia la aplicación: ``` npm run dev ```
 
 ### Obtener Key para gmail:
