@@ -1,9 +1,10 @@
 node_modules/
 dist/
-.vscode/
+.vscode
 package-lock.json
 logs/
 .env
 test.html
 /mongo
 /postgres
+.env.test

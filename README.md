@@ -2,7 +2,7 @@
 
 ### Instrucciones de como montar esta aplicación:
 
-1. Clonar el archivo .env.template o renombrarlo a .env
+1. Clonar el archivo .env.template y renombrarlo a .env (opcionalemnte crear el archivo .env.test)
 2. Configurar las siguientes variables de entorno:
 
 - Generales:
