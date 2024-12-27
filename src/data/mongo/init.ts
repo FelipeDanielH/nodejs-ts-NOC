@@ -7,7 +7,7 @@ interface ConnectionOptions {
 
 export class MongoDatabase {
 
-    public static async connect( options: ConnectionOptions ): Promise<void> {
+    public static async connect( options: ConnectionOptions ) {
 
         const {mongoUrl, dbName} = options;
 
@@ -16,12 +16,11 @@ export class MongoDatabase {
                 dbName
             })
 
+            return true;
         } catch (error) {
             console.log('error conectandose a la base de datos');
             throw error;
         }
-
-        
     }
 
 

@@ -8,3 +8,6 @@ test.html
 /mongo
 /postgres
 .env.test
+coverage/
+mongo-test/
+postgres-test/
