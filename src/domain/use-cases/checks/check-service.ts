@@ -39,9 +39,9 @@ export class CheckService implements CheckServiceUseCase {
             const errorMessage = `${error}`
 
             const logErrorEntity = new LogEntity({
-                message: ` Error: ${error}`,
+                message: `Error: ${error}`,
                 level: LogSeverityLevel.high,
-                origin: 'çheck-service'
+                origin: 'check-service'
             });
 
             this.logRepository.saveLog(logErrorEntity);
