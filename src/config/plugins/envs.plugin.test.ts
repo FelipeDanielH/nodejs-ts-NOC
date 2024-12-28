@@ -14,7 +14,7 @@ describe('envs.plugin', () => {
             MAILER_SECRET_KEY: 'iazonlfmjczjazml',
             MAILER_DESTINATARY: 'felipe.daniel.juegos@gmail.com',
             PROD: false,
-            MONGO_URL: 'mongodb://felipe:123456789@localhost:27017/',
+            MONGO_URL: 'mongodb://felipetest:123456789@localhost:27017/',
             MONGO_DB_NAME: 'NOC-test',
             MONGO_USER: 'felipetest',
             MONGO_PASS: '123456789'
