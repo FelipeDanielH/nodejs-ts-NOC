@@ -79,8 +79,6 @@ export class EmailService {
                 to, subject, attachments, html: htmlBody
             })
     
-            console.log('desde sendEmailWithFileSystemLogs: ',sentInformation);
-    
             return true;
         } catch (error) {
             return false;
