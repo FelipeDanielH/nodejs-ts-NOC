@@ -6,14 +6,15 @@ import { LogModel } from "./log.model"
 
 describe('log.model', () => {
 
-    beforeAll(() => {
-        MongoDatabase.connect({
+    beforeAll(async () => {
+        await MongoDatabase.connect({
             mongoUrl: envs.MONGO_URL,
             dbName: envs.MONGO_DB_NAME
         });
     })
 
-    afterAll(() => {
+    afterAll(async () => {
+        await LogModel.deleteMany()
         mongoose.connection.close();
     })
 
@@ -29,11 +30,11 @@ describe('log.model', () => {
 
         expect(testModel).toEqual(
             expect.objectContaining(
-            {
-                ...options,
-                createdAt: expect.any(Date),
-                id: expect.any(String)
-            })  
+                {
+                    ...options,
+                    createdAt: expect.any(Date),
+                    id: expect.any(String)
+                })
         )
 
     })
