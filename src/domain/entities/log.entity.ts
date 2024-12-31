@@ -20,11 +20,11 @@ export class LogEntity {
     public origin: string;
 
     constructor(options: logEntityOptions) {
-        const { level, message, origin, createdAt = new Date() } = options
+        const { level, message, origin, createdAt } = options
         this.message = message;
         this.level = level;
         this.origin = origin;
-        this.createdAt = createdAt;
+        this.createdAt = createdAt ?? new Date();
     }
 
 
