@@ -9,7 +9,7 @@ export interface logEntityOptions {
     level: LogSeverityLevel,
     message: string,
     origin: string,
-    createdAt?: Date
+    createdAt?: Date;
 }
 
 export class LogEntity {
@@ -20,11 +20,11 @@ export class LogEntity {
     public origin: string;
 
     constructor(options: logEntityOptions) {
-        const { level, message, origin, createdAt } = options
+        const { level, message, origin, createdAt = new Date() } = options
         this.message = message;
         this.level = level;
         this.origin = origin;
-        this.createdAt = createdAt ?? new Date();
+        this.createdAt = createdAt;
     }
 
 

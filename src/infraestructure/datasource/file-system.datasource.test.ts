@@ -132,14 +132,14 @@ describe('file-system.datasource', () => {
 
         const mediumLog: LogEntity = {
             level: LogSeverityLevel.medium,
-            message: 'test message low',
+            message: 'test message medium',
             origin: 'file-system.datasource.test.ts',
             createdAt: new Date()
         }
 
         const highLog: LogEntity = {
             level: LogSeverityLevel.high,
-            message: 'test message low',
+            message: 'test message high',
             origin: 'file-system.datasource.test.ts',
             createdAt: new Date()
         }
@@ -151,6 +151,8 @@ describe('file-system.datasource', () => {
         const allLogs = await fsDataSource.getLogs(LogSeverityLevel.low);
         const mediumLogs = await fsDataSource.getLogs(LogSeverityLevel.medium);
         const highLogs = await fsDataSource.getLogs(LogSeverityLevel.high);
+
+        
 
 
     })

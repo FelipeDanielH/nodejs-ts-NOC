@@ -33,7 +33,6 @@ export class SendEmailLogs implements SendLogEmailUseCase {
             this.logRepository.saveLog(log);
 
         } catch (error) {
-            console.log(`${error}`);
 
             const log = new LogEntity({
                 level: LogSeverityLevel.high,
